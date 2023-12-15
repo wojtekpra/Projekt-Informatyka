@@ -24,7 +24,7 @@ Gracz::Gracz(float x, float y) {
     ludzik.setPosition(pozycja);
     tekstura.loadFromFile("buzia.PNG");
     ludzik.setTexture(tekstura);
-    ludzik.setScale(0.0577, 0.0866);
+    ludzik.setScale(0.0577, 0.0866); //51,93px
 }
 
 
@@ -37,6 +37,7 @@ protected:
     sf::Font* czcionka;
     sf::RenderWindow* window;
     sf::RectangleShape* tlo;
+    sf::Texture* labirynt;
 
 
     void init();
@@ -75,6 +76,10 @@ void Interfejs::init() {
     Czas = new sf::Text;
 
     tlo = new sf::RectangleShape;
+    labirynt = new sf::Texture;
+    labirynt->loadFromFile("mapa 2.png");
+    tlo->setTexture(labirynt);
+
 
     Czas->setFont(*czcionka);
     Czas->setCharacterSize(28);
@@ -83,19 +88,19 @@ void Interfejs::init() {
     Czas->setString("Czas: ");
 
 
-    wymiarytla.x = wymiary.x - 45;
-    wymiarytla.y = wymiary.y - 80;
+    wymiarytla.x = wymiary.x - 45;  //800 - 45 = 755px
+    wymiarytla.y = wymiary.y - 80;  //520px
     tlo->setPosition(22, 50);
     tlo->setSize(wymiarytla);
-    tlo->setFillColor(sf::Color::Blue);
+    tlo->setFillColor(sf::Color::White);
 }
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Okno");
+    sf::RenderWindow window(sf::VideoMode(600, 600), "Okno");
     sf::Event event;
     Gracz gracz(400, 300);
-    Interfejs interfejs(sf::Vector2f(800, 600), &window);
+    Interfejs interfejs(sf::Vector2f(600, 600), &window);
 
     while (window.isOpen())
     {

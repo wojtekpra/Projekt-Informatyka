@@ -1,9 +1,9 @@
 ﻿  Źródło.cpp
 C:\Users\48660\Desktop\Projekt Informatyka\Projekt informatyka\Projekt informatyka\Źródło.cpp(27,29): warning C4305: "argument": obcięcie z "double" do "float"
 C:\Users\48660\Desktop\Projekt Informatyka\Projekt informatyka\Projekt informatyka\Źródło.cpp(27,21): warning C4305: "argument": obcięcie z "double" do "float"
-C:\Users\48660\Desktop\Projekt Informatyka\Projekt informatyka\Projekt informatyka\Źródło.cpp(96,15): warning C4101: "event": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\48660\Desktop\Projekt Informatyka\Projekt informatyka\Projekt informatyka\Źródło.cpp(101,15): warning C4101: "event": lokalna zmienna, do której nie istnieje odwołanie
   Trwa generowanie kodu
-  2 of 110 functions ( 1.8%) were compiled, the rest were copied from previous compilation.
+  1 of 110 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
