@@ -16,6 +16,7 @@ public:
     sf::Sprite getGracz() {
         return ludzik;
     }
+    void ruch(float x, float y);
 };
 
 Gracz::Gracz(float x, float y) {
@@ -24,10 +25,14 @@ Gracz::Gracz(float x, float y) {
     ludzik.setPosition(pozycja);
     tekstura.loadFromFile("buzia.PNG");
     ludzik.setTexture(tekstura);
-    ludzik.setScale(0.0577, 0.0866); //51,93px
+    ludzik.setScale(0.0477, 0.0666); //51,93px
 }
 
-
+void Gracz::ruch(float x, float y) {
+    pozycja.x = pozycja.x + x;
+    pozycja.y = pozycja.y + y;
+    ludzik.setPosition(pozycja);
+}
 
 class Interfejs {
 protected:
@@ -57,6 +62,7 @@ Interfejs::~Interfejs() {
     delete tlo;
     delete Czas;
     delete czcionka;
+    delete labirynt;
 }
 
 void Interfejs::draw() {
@@ -99,7 +105,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(600, 600), "Okno");
     sf::Event event;
-    Gracz gracz(400, 300);
+    Gracz gracz(30, 60); //30,60 to 1 kafelek, 55 w x, 50 w y
     Interfejs interfejs(sf::Vector2f(600, 600), &window);
 
     while (window.isOpen())
@@ -110,6 +116,19 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
+                gracz.ruch(55, 0);
+            
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::A)
+                gracz.ruch(-55, 0);
+            
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
+                gracz.ruch(0, 50);
+
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
+                gracz.ruch(0, -50);
+
         }
 
         window.clear(sf::Color::Black);
