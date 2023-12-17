@@ -4,19 +4,22 @@
 #include <iostream>
 
 
+
+
+
 class Gracz {
 private:
     sf::Sprite ludzik;
     sf::Texture tekstura;
     sf::Vector2f pozycja;
-
+    sf::Clock zegar;
     
 public:
     Gracz(float x, float y);
     sf::Sprite getGracz() {
         return ludzik;
     }
-    void ruch(float x, float y);
+    void ruch(float x, float y, const std::vector<sf::Vector2f>& sciany);
 };
 
 Gracz::Gracz(float x, float y) {
@@ -28,10 +31,23 @@ Gracz::Gracz(float x, float y) {
     ludzik.setScale(0.0477, 0.0666); //51,93px
 }
 
-void Gracz::ruch(float x, float y) {
-    pozycja.x = pozycja.x + x;
-    pozycja.y = pozycja.y + y;
-    ludzik.setPosition(pozycja);
+void Gracz::ruch(float x, float y, const std::vector<sf::Vector2f>& sciany) {
+    if (zegar.getElapsedTime().asSeconds() > 0.5){
+        pozycja.x = pozycja.x + x;
+        pozycja.y = pozycja.y + y;
+        for (const auto& vector : sciany)
+        {
+            if (pozycja == vector) {
+                pozycja.x = pozycja.x - x;
+                pozycja.y = pozycja.y - y;
+            }
+        }
+        
+        ludzik.setPosition(pozycja);
+        std::cout << pozycja.x << " " << pozycja.y << std::endl;
+        zegar.restart();
+    }
+ 
 }
 
 class Interfejs {
@@ -105,7 +121,37 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(600, 600), "Okno");
     sf::Event event;
-    Gracz gracz(30, 60); //30,60 to 1 kafelek, 55 w x, 50 w y
+
+    std::vector<sf::Vector2f> sciany;
+    sciany.push_back(sf::Vector2f(85, 111));
+    sciany.push_back(sf::Vector2f(140, 111));
+    sciany.push_back(sf::Vector2f(305, 111));
+    sciany.push_back(sf::Vector2f(360, 111));
+    sciany.push_back(sf::Vector2f(415, 111));
+    sciany.push_back(sf::Vector2f(470, 111));
+    sciany.push_back(sf::Vector2f(415, 162));
+    sciany.push_back(sf::Vector2f(250, 162));
+    sciany.push_back(sf::Vector2f(85, 162));
+    sciany.push_back(sf::Vector2f(360, 213));
+    sciany.push_back(sf::Vector2f(470, 213));
+    sciany.push_back(sf::Vector2f(85, 264));
+    sciany.push_back(sf::Vector2f(140, 264));
+    sciany.push_back(sf::Vector2f(195, 264));
+    sciany.push_back(sf::Vector2f(250, 264));
+    sciany.push_back(sf::Vector2f(250, 315));
+    sciany.push_back(sf::Vector2f(415, 315));
+    sciany.push_back(sf::Vector2f(195, 366));
+    sciany.push_back(sf::Vector2f(415, 366));
+    sciany.push_back(sf::Vector2f(470, 366));
+    sciany.push_back(sf::Vector2f(140, 417));
+    sciany.push_back(sf::Vector2f(305, 417));
+    sciany.push_back(sf::Vector2f(470, 417));
+    sciany.push_back(sf::Vector2f(85, 468));
+    sciany.push_back(sf::Vector2f(250, 468));
+    sciany.push_back(sf::Vector2f(360, 468));
+
+
+    Gracz gracz(30, 60); //30,60 to 1 kafelek, 55 w x, 51 w y
     Interfejs interfejs(sf::Vector2f(600, 600), &window);
 
     while (window.isOpen())
@@ -118,16 +164,16 @@ int main()
                 window.close();
 
             if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
-                gracz.ruch(55, 0);
+                gracz.ruch(55, 0, sciany);
             
             if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::A)
-                gracz.ruch(-55, 0);
+                gracz.ruch(-55, 0, sciany);
             
             if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
-                gracz.ruch(0, 50);
+                gracz.ruch(0, -51, sciany);
 
             if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
-                gracz.ruch(0, -50);
+                gracz.ruch(0, 51, sciany);
 
         }
 
