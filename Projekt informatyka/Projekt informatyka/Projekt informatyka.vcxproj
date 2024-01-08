@@ -130,7 +130,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Gracz.cpp" />
+    <ClCompile Include="Interfejs.cpp" />
+    <ClCompile Include="Moneta.cpp" />
+    <ClCompile Include="Moneta.hpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Źródło.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="Gracz.hpp" />
+    <ClInclude Include="Interfejs.hpp" />
+    <ClInclude Include="Tile.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

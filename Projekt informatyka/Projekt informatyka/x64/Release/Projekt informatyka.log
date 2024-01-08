@@ -1,10 +1,8 @@
-﻿  Źródło.cpp
-C:\Users\48660\Desktop\Projekt Informatyka\Projekt informatyka\Projekt informatyka\Źródło.cpp(31,29): warning C4305: "argument": obcięcie z "double" do "float"
-C:\Users\48660\Desktop\Projekt Informatyka\Projekt informatyka\Projekt informatyka\Źródło.cpp(31,21): warning C4305: "argument": obcięcie z "double" do "float"
-C:\Users\48660\Desktop\Projekt Informatyka\Projekt informatyka\Projekt informatyka\Źródło.cpp(123,15): warning C4101: "event": lokalna zmienna, do której nie istnieje odwołanie
+﻿  Enemy.cpp
+x64\Release\Moneta.obj : warning LNK4042: obiekt określono więcej niż raz; dodatkowe wystąpienia zostały zignorowane
   Trwa generowanie kodu
-  5 of 166 functions ( 3.0%) were compiled, the rest were copied from previous compilation.
-    4 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  0 of 371 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
-  Projekt informatyka.vcxproj -> C:\Users\48660\Desktop\Projekt Informatyka\Projekt informatyka\x64\Release\Projekt informatyka.exe
+  Projekt informatyka.vcxproj -> C:\Users\Wojtek\Desktop\Projekt Informatyka\Projekt informatyka\x64\Release\Projekt informatyka.exe

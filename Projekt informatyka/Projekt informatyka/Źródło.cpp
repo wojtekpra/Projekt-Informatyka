@@ -2,131 +2,158 @@
 #include <SFML/Window.hpp>
 #include <random>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <sstream> 
+#include "Tile.hpp"
+#include "Gracz.hpp"
+#include "Interfejs.hpp"
+#include "Enemy.hpp"
+#include "Moneta.hpp"
 
 
+#include <SFML/Graphics.hpp>
+#include <vector>
 
-
-
-class Gracz {
-private:
-    sf::Sprite ludzik;
-    sf::Texture tekstura;
-    sf::Vector2f pozycja;
-    sf::Clock zegar;
+void dodajRuchWróg1(std::vector<sf::Vector2f>& ruch1) {
+    ruch1.push_back(sf::Vector2f(30, 60));
+    ruch1.push_back(sf::Vector2f(85, 60));
+    ruch1.push_back(sf::Vector2f(140, 60));
+    ruch1.push_back(sf::Vector2f(195, 60));
+    ruch1.push_back(sf::Vector2f(250, 60));
+    ruch1.push_back(sf::Vector2f(305, 60));
+    ruch1.push_back(sf::Vector2f(360, 60));
+    ruch1.push_back(sf::Vector2f(415, 60));
+    ruch1.push_back(sf::Vector2f(470, 60));
+    ruch1.push_back(sf::Vector2f(525, 60));
+    ruch1.push_back(sf::Vector2f(525, 111));
+    ruch1.push_back(sf::Vector2f(525, 162));
+    ruch1.push_back(sf::Vector2f(525, 213));
+    ruch1.push_back(sf::Vector2f(525, 264));
+    ruch1.push_back(sf::Vector2f(470, 264));
+    ruch1.push_back(sf::Vector2f(415, 264));
+    ruch1.push_back(sf::Vector2f(360, 264));
+    ruch1.push_back(sf::Vector2f(305, 264));
+    ruch1.push_back(sf::Vector2f(305, 213));
+    ruch1.push_back(sf::Vector2f(250, 213));
+    ruch1.push_back(sf::Vector2f(195, 213));
+    ruch1.push_back(sf::Vector2f(140, 213));
+    ruch1.push_back(sf::Vector2f(85, 213));
+    ruch1.push_back(sf::Vector2f(30, 213));
+    ruch1.push_back(sf::Vector2f(30, 162));
+    ruch1.push_back(sf::Vector2f(30, 111));
     
-public:
-    Gracz(float x, float y);
-    sf::Sprite getGracz() {
-        return ludzik;
-    }
-    void ruch(float x, float y, const std::vector<sf::Vector2f>& sciany);
-};
-
-Gracz::Gracz(float x, float y) {
-    pozycja.x = x;
-    pozycja.y = y;
-    ludzik.setPosition(pozycja);
-    tekstura.loadFromFile("buzia.PNG");
-    ludzik.setTexture(tekstura);
-    ludzik.setScale(0.0477, 0.0666); //51,93px
 }
 
-void Gracz::ruch(float x, float y, const std::vector<sf::Vector2f>& sciany) {
-    if (zegar.getElapsedTime().asSeconds() > 0.5){
-        pozycja.x = pozycja.x + x;
-        pozycja.y = pozycja.y + y;
-        for (const auto& vector : sciany)
-        {
-            if (pozycja == vector) {
-                pozycja.x = pozycja.x - x;
-                pozycja.y = pozycja.y - y;
-            }
-        }
-        
-        ludzik.setPosition(pozycja);
-        std::cout << pozycja.x << " " << pozycja.y << std::endl;
-        zegar.restart();
-    }
- 
-}
-
-class Interfejs {
-protected:
-    sf::Vector2f wymiary;
-    sf::Vector2f wymiarytla;
-    sf::Text* Czas;
-    sf::Font* czcionka;
-    sf::RenderWindow* window;
-    sf::RectangleShape* tlo;
-    sf::Texture* labirynt;
-
-
-    void init();
-
-public:
-    Interfejs(sf::Vector2f wymiary, sf::RenderWindow* window);
-    ~Interfejs();
-    void setText(std::string left);
-    void draw();
-};
-
-Interfejs::Interfejs(sf::Vector2f wymiary, sf::RenderWindow* window) : wymiary(wymiary) {
-    this->window = window;
-    init();
-}
-Interfejs::~Interfejs() {
-    delete tlo;
-    delete Czas;
-    delete czcionka;
-    delete labirynt;
-}
-
-void Interfejs::draw() {
-    window->draw(*tlo);
-    window->draw(*Czas);
+void dodajRuchWróg2(std::vector<sf::Vector2f>& ruch2) {
+    ruch2.push_back(sf::Vector2f(30, 213));
+    ruch2.push_back(sf::Vector2f(30, 264));
+    ruch2.push_back(sf::Vector2f(30, 315));
+    ruch2.push_back(sf::Vector2f(85, 315));
+    ruch2.push_back(sf::Vector2f(140, 315));
+    ruch2.push_back(sf::Vector2f(140, 366));
+    ruch2.push_back(sf::Vector2f(85, 366));
+    ruch2.push_back(sf::Vector2f(30, 366));
+    ruch2.push_back(sf::Vector2f(30, 417));
+    ruch2.push_back(sf::Vector2f(30, 468));
+    ruch2.push_back(sf::Vector2f(30, 519));
+    ruch2.push_back(sf::Vector2f(85, 519));
+    ruch2.push_back(sf::Vector2f(140, 519));
+    ruch2.push_back(sf::Vector2f(195, 519));
+    ruch2.push_back(sf::Vector2f(195, 468));
+    ruch2.push_back(sf::Vector2f(195, 417));
+    ruch2.push_back(sf::Vector2f(250, 417));
+    ruch2.push_back(sf::Vector2f(250, 366));
+    ruch2.push_back(sf::Vector2f(305, 366));
+    ruch2.push_back(sf::Vector2f(305 ,315));
+    ruch2.push_back(sf::Vector2f(305, 264));
+    ruch2.push_back(sf::Vector2f(305, 213));
+    ruch2.push_back(sf::Vector2f(250, 213));
+    ruch2.push_back(sf::Vector2f(195 ,213));
+    ruch2.push_back(sf::Vector2f(140 ,213));
+    ruch2.push_back(sf::Vector2f(85, 213));
 
 }
 
-void Interfejs::setText(std::string left) {
-    Czas->setString(left);
+void dodajRuchWróg3(std::vector<sf::Vector2f>& ruch3) {
+    ruch3.push_back(sf::Vector2f(360, 264));
+    ruch3.push_back(sf::Vector2f(360, 315));
+    ruch3.push_back(sf::Vector2f(360, 366));
+    ruch3.push_back(sf::Vector2f(360, 417));
+    ruch3.push_back(sf::Vector2f(415, 417));
+    ruch3.push_back(sf::Vector2f(415, 468));
+    ruch3.push_back(sf::Vector2f(470, 468));
+    ruch3.push_back(sf::Vector2f(470, 519));
+    ruch3.push_back(sf::Vector2f(525, 519));
+    ruch3.push_back(sf::Vector2f(525, 468));
+    ruch3.push_back(sf::Vector2f(525, 417));
+    ruch3.push_back(sf::Vector2f(525, 366));
+    ruch3.push_back(sf::Vector2f(525, 315));
+    ruch3.push_back(sf::Vector2f(470, 315));
+    ruch3.push_back(sf::Vector2f(470, 264));
+    ruch3.push_back(sf::Vector2f(415, 264));
+    ruch3.push_back(sf::Vector2f(360, 264));
+}
+void dodajRuchWróg4(std::vector<sf::Vector2f>& ruch4) {
+    ruch4.push_back(sf::Vector2f(305, 519));
+    ruch4.push_back(sf::Vector2f(360, 519));
+    ruch4.push_back(sf::Vector2f(415, 519));
+    ruch4.push_back(sf::Vector2f(415, 468));
+    ruch4.push_back(sf::Vector2f(415, 417));
+    ruch4.push_back(sf::Vector2f(360, 417));
+    ruch4.push_back(sf::Vector2f(360, 366));
+    ruch4.push_back(sf::Vector2f(305, 366));
+    ruch4.push_back(sf::Vector2f(250, 366));
+    ruch4.push_back(sf::Vector2f(250, 417));
+    ruch4.push_back(sf::Vector2f(195, 417));
+    ruch4.push_back(sf::Vector2f(195, 468));
+    ruch4.push_back(sf::Vector2f(195, 519));
+    ruch4.push_back(sf::Vector2f(250, 519));
 }
 
-
-void Interfejs::init() {
-    czcionka = new sf::Font;
-    czcionka->loadFromFile("arial.ttf");
-    Czas = new sf::Text;
-
-    tlo = new sf::RectangleShape;
-    labirynt = new sf::Texture;
-    labirynt->loadFromFile("mapa 2.png");
-    tlo->setTexture(labirynt);
-
-
-    Czas->setFont(*czcionka);
-    Czas->setCharacterSize(28);
-    Czas->setPosition(10, 5);
-    Czas->setFillColor(sf::Color::Cyan);
-    Czas->setString("Czas: ");
-
-
-    wymiarytla.x = wymiary.x - 45;  //800 - 45 = 755px
-    wymiarytla.y = wymiary.y - 80;  //520px
-    tlo->setPosition(22, 50);
-    tlo->setSize(wymiarytla);
-    tlo->setFillColor(sf::Color::White);
+void dodajRuchWróg5(std::vector<sf::Vector2f>& ruch5) {
+    ruch5.push_back(sf::Vector2f(305, 162));
+    ruch5.push_back(sf::Vector2f(305, 213));
+    ruch5.push_back(sf::Vector2f(305, 264));
+    ruch5.push_back(sf::Vector2f(360, 264));
+    ruch5.push_back(sf::Vector2f(415, 264));
+    ruch5.push_back(sf::Vector2f(470, 264));
+    ruch5.push_back(sf::Vector2f(525, 264));
+    ruch5.push_back(sf::Vector2f(525, 213));
+    ruch5.push_back(sf::Vector2f(525, 162));
+    ruch5.push_back(sf::Vector2f(525, 111));
+    ruch5.push_back(sf::Vector2f(525, 60));
+    ruch5.push_back(sf::Vector2f(470, 60));
+    ruch5.push_back(sf::Vector2f(415, 60));
+    ruch5.push_back(sf::Vector2f(360, 60));
+    ruch5.push_back(sf::Vector2f(360, 111));
+    ruch5.push_back(sf::Vector2f(360, 162));
+    ruch5.push_back(sf::Vector2f(305, 162));
 }
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode(600, 600), "Okno");
-    sf::Event event;
+void dodajRuchWróg6(std::vector<sf::Vector2f>& ruch6) {
+    ruch6.push_back(sf::Vector2f(30, 60));
+    ruch6.push_back(sf::Vector2f(30, 111));
+    ruch6.push_back(sf::Vector2f(30, 162));
+    ruch6.push_back(sf::Vector2f(30, 213));
+    ruch6.push_back(sf::Vector2f(85, 213));
+    ruch6.push_back(sf::Vector2f(140, 213));
+    ruch6.push_back(sf::Vector2f(140, 162));
+    ruch6.push_back(sf::Vector2f(195, 162));
+    ruch6.push_back(sf::Vector2f(195, 111));
+    ruch6.push_back(sf::Vector2f(250, 111));
+    ruch6.push_back(sf::Vector2f(250, 60));
+    ruch6.push_back(sf::Vector2f(195, 60));
+    ruch6.push_back(sf::Vector2f(140, 60));
+    ruch6.push_back(sf::Vector2f(85, 60));
+    ruch6.push_back(sf::Vector2f(30, 60));
+}
 
-    std::vector<sf::Vector2f> sciany;
+void dodajSciany(std::vector<sf::Vector2f>& sciany) {
     sciany.push_back(sf::Vector2f(85, 111));
     sciany.push_back(sf::Vector2f(140, 111));
     sciany.push_back(sf::Vector2f(305, 111));
-    sciany.push_back(sf::Vector2f(360, 111));
+    //sciany.push_back(sf::Vector2f(360, 111));
     sciany.push_back(sf::Vector2f(415, 111));
     sciany.push_back(sf::Vector2f(470, 111));
     sciany.push_back(sf::Vector2f(415, 162));
@@ -149,10 +176,49 @@ int main()
     sciany.push_back(sf::Vector2f(85, 468));
     sciany.push_back(sf::Vector2f(250, 468));
     sciany.push_back(sf::Vector2f(360, 468));
+}
 
 
-    Gracz gracz(30, 60); //30,60 to 1 kafelek, 55 w x, 51 w y
+bool sprawdzKolizje(const sf::Sprite& Gracz, const sf::Sprite& wróg) {
+    return Gracz.getGlobalBounds().intersects(wróg.getGlobalBounds());
+}
+
+int main()
+{
+    int punkty = 0;
+    int ruch = 0;
+    std::stringstream ss;
+    sf::RenderWindow window(sf::VideoMode(605, 600), "Okno");
+    sf::Event event;
+
+    std::vector<sf::Vector2f> sciany;
+    dodajSciany(sciany);
+
+    std::vector<sf::Vector2f> ruch1;
+    std::vector<sf::Vector2f> ruch2;
+    std::vector<sf::Vector2f> ruch3;
+    std::vector<sf::Vector2f> ruch4;
+    std::vector<sf::Vector2f> ruch5;
+    std::vector<sf::Vector2f> ruch6;
+    dodajRuchWróg1(ruch1);
+    dodajRuchWróg2(ruch2);
+    dodajRuchWróg3(ruch3);
+    dodajRuchWróg4(ruch4);
+    dodajRuchWróg5(ruch5);
+    dodajRuchWróg6(ruch6);
+
+    Gracz gracz(305, 468); //30,60 to 1 kafelek, 55 w x, 51 w y
+    Enemy enemy1(30, 60, 1, ruch1);
+    Enemy enemy2(30, 213, 2, ruch2);
+    Enemy enemy3(360, 264, 3, ruch3);
+    Enemy enemy4(305, 519, 4, ruch4);
+    Enemy enemy5(305, 162, 5, ruch5);
+    Enemy enemy6(195, 162, 6, ruch6);
     Interfejs interfejs(sf::Vector2f(600, 600), &window);
+    Tile tile(sciany);
+    
+
+    Moneta moneta(sciany);
 
     while (window.isOpen())
     {
@@ -163,23 +229,176 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
-                gracz.ruch(55, 0, sciany);
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::D) {
+                gracz.ruch(1, 0, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
+                
+                
+                if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
+                    moneta.losujpozycje(sciany);
+                    ss.str("");
+                    punkty = punkty + 1;
+                    ss << "Punkty: " << punkty;
+                    interfejs.setTextPunkty((ss.str()));
+                }
+                
+            }
+                
+                
             
-            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::A)
-                gracz.ruch(-55, 0, sciany);
-            
-            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)
-                gracz.ruch(0, -51, sciany);
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
+                gracz.ruch(-1, 0, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
+                
+                if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
+                    moneta.losujpozycje(sciany);
+                    ss.str("");
+                    punkty = punkty + 1;
+                    ss << "Punkty: " << punkty;
+                    interfejs.setTextPunkty((ss.str()));
+                }
+            }
+                
+                
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::W) {
+                gracz.ruch(0, -1, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
+                
+                if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
+                    moneta.losujpozycje(sciany);
+                    ss.str("");
+                    punkty = punkty + 1;
+                    ss << "Punkty: " << punkty;
 
-            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::S)
-                gracz.ruch(0, 51, sciany);
-
+                    interfejs.setTextPunkty((ss.str()));
+                }
+            }
+               
+                
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::S) {
+                gracz.ruch(0, 1, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
+               
+                
+                if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
+                    std::cout << "Kolizja!" << std::endl;
+                    window.close();
+                }
+                if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
+                    moneta.losujpozycje(sciany);
+                    ss.str("");
+                    punkty = punkty + 1;
+                    ss << "Punkty: " << punkty;
+                    interfejs.setTextPunkty((ss.str()));
+                    
+                }
+            }
+                
+                
         }
 
         window.clear(sf::Color::Black);
+        
         interfejs.draw();
+        tile.draw(window);
+
+        
         window.draw(gracz.getGracz());
+        window.draw(enemy1.getEnemy());
+        window.draw(enemy2.getEnemy());
+        window.draw(enemy3.getEnemy());
+        window.draw(enemy4.getEnemy());
+        window.draw(enemy5.getEnemy());
+        window.draw(enemy6.getEnemy());
+        window.draw(moneta.getMoneta());
         window.display();
     }
 
