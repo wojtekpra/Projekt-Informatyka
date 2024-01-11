@@ -10,7 +10,9 @@
 #include "Interfejs.hpp"
 #include "Enemy.hpp"
 #include "Moneta.hpp"
-
+#include "Menu.hpp"
+#include "Pomoc.hpp"
+#include "Exit.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -42,7 +44,7 @@ void dodajRuchWróg1(std::vector<sf::Vector2f>& ruch1) {
     ruch1.push_back(sf::Vector2f(30, 213));
     ruch1.push_back(sf::Vector2f(30, 162));
     ruch1.push_back(sf::Vector2f(30, 111));
-    
+
 }
 
 void dodajRuchWróg2(std::vector<sf::Vector2f>& ruch2) {
@@ -65,12 +67,12 @@ void dodajRuchWróg2(std::vector<sf::Vector2f>& ruch2) {
     ruch2.push_back(sf::Vector2f(250, 417));
     ruch2.push_back(sf::Vector2f(250, 366));
     ruch2.push_back(sf::Vector2f(305, 366));
-    ruch2.push_back(sf::Vector2f(305 ,315));
+    ruch2.push_back(sf::Vector2f(305, 315));
     ruch2.push_back(sf::Vector2f(305, 264));
     ruch2.push_back(sf::Vector2f(305, 213));
     ruch2.push_back(sf::Vector2f(250, 213));
-    ruch2.push_back(sf::Vector2f(195 ,213));
-    ruch2.push_back(sf::Vector2f(140 ,213));
+    ruch2.push_back(sf::Vector2f(195, 213));
+    ruch2.push_back(sf::Vector2f(140, 213));
     ruch2.push_back(sf::Vector2f(85, 213));
 
 }
@@ -183,8 +185,14 @@ bool sprawdzKolizje(const sf::Sprite& Gracz, const sf::Sprite& wróg) {
     return Gracz.getGlobalBounds().intersects(wróg.getGlobalBounds());
 }
 
+
+
 int main()
 {
+    bool czymenu = true;
+    bool czygra = false;
+    bool czypauza = false;
+    bool czyexit = false;
     int punkty = 0;
     int ruch = 0;
     std::stringstream ss;
@@ -207,7 +215,7 @@ int main()
     dodajRuchWróg5(ruch5);
     dodajRuchWróg6(ruch6);
 
-    Gracz gracz(305, 468); //30,60 to 1 kafelek, 55 w x, 51 w y
+    Gracz gracz(305, 468, 1); //30,60 to 1 kafelek, 55 w x, 51 w y
     Enemy enemy1(30, 60, 1, ruch1);
     Enemy enemy2(30, 213, 2, ruch2);
     Enemy enemy3(360, 264, 3, ruch3);
@@ -216,191 +224,279 @@ int main()
     Enemy enemy6(195, 162, 6, ruch6);
     Interfejs interfejs(sf::Vector2f(600, 600), &window);
     Tile tile(sciany);
-    
+    Menu menu;
+    Pomoc pauza;
+    Exit exit;
+    int cobylo = 0;
+
 
     Moneta moneta(sciany);
-
+    int skórka = 0;
     while (window.isOpen())
     {
 
         sf::Event event;
-        while (window.pollEvent(event))
-        {
+
+        while (window.pollEvent(event)) {
+
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::D) {
-                gracz.ruch(1, 0, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
-                
-                
-                if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
-                    moneta.losujpozycje(sciany);
-                    ss.str("");
-                    punkty = punkty + 1;
-                    ss << "Punkty: " << punkty;
-                    interfejs.setTextPunkty((ss.str()));
+            //wybór skórki
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::Z) {
+                if (czymenu) {
+                    skórka = 1;
+                    gracz.ZmianaTekstury(skórka);
+                    czymenu = false;
+                    czygra = true;
                 }
                 
             }
-                
-                
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::X) {
+                if (czymenu) {
+                    skórka = 2;
+                    gracz.ZmianaTekstury(skórka);
+                    czymenu = false;
+                    czygra = true;
+                }
+            }
             
-            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
-                gracz.ruch(-1, 0, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
-                
-                if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
-                    moneta.losujpozycje(sciany);
-                    ss.str("");
-                    punkty = punkty + 1;
-                    ss << "Punkty: " << punkty;
-                    interfejs.setTextPunkty((ss.str()));
-                }
-            }
-                
-                
-            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::W) {
-                gracz.ruch(0, -1, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
-                
-                if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
-                    moneta.losujpozycje(sciany);
-                    ss.str("");
-                    punkty = punkty + 1;
-                    ss << "Punkty: " << punkty;
+            //ruch Gracza
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::D) {
+                if (czygra) {
+                    gracz.ruch(1, 0, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
 
-                    interfejs.setTextPunkty((ss.str()));
+
+                    if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
+                        moneta.losujpozycje(sciany);
+                        ss.str("");
+                        punkty = punkty + 1;
+                        ss << "Punkty: " << punkty;
+                        interfejs.setTextPunkty((ss.str()));
+                    }
                 }
             }
-               
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::A) {
+                if(czygra){
+                    gracz.ruch(-1, 0, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
+
+                    if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
+                        moneta.losujpozycje(sciany);
+                        ss.str("");
+                        punkty = punkty + 1;
+                        ss << "Punkty: " << punkty;
+                        interfejs.setTextPunkty((ss.str()));
+                    }
+                }
                 
+            }
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::W) {
+                if (czygra) {
+                    gracz.ruch(0, -1, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
+
+                    if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
+                        moneta.losujpozycje(sciany);
+                        ss.str("");
+                        punkty = punkty + 1;
+                        ss << "Punkty: " << punkty;
+
+                        interfejs.setTextPunkty((ss.str()));
+                    }
+                }
+                
+            }
             if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::S) {
-                gracz.ruch(0, 1, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
-               
+                if (czygra) {
+                    gracz.ruch(0, 1, sciany, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, interfejs, ruch);
+
+
+                    if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
+                        std::cout << "Kolizja!" << std::endl;
+                        window.close();
+                    }
+                    if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
+                        moneta.losujpozycje(sciany);
+                        ss.str("");
+                        punkty = punkty + 1;
+                        ss << "Punkty: " << punkty;
+                        interfejs.setTextPunkty((ss.str()));
+
+                    }
+                }
                 
-                if (sprawdzKolizje(gracz.getGracz(), enemy1.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy2.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy3.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy4.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy5.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                else if (sprawdzKolizje(gracz.getGracz(), enemy6.getEnemy())) {
-                    std::cout << "Kolizja!" << std::endl;
-                    window.close();
-                }
-                if (sprawdzKolizje(gracz.getGracz(), moneta.getMoneta())) {
-                    moneta.losujpozycje(sciany);
-                    ss.str("");
-                    punkty = punkty + 1;
-                    ss << "Punkty: " << punkty;
-                    interfejs.setTextPunkty((ss.str()));
-                    
+            }
+            //obs³uga pauzy
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1) {
+                if (czygra) {
+                    czygra = false;
+                    czypauza = true;
                 }
             }
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) {
+                if (czypauza) {
+                    czypauza = false;
+                    czygra = true;
+                }
+            }
+            //obs³uga wyjœcia
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
                 
+                if (czygra) {
+                    czygra = false;
+                    cobylo = 2;
+                }
+                if (czymenu) {
+                    czymenu = false;
+                    cobylo = 1;
+                }
+                if (czypauza) {
+                    czypauza = false;
+                    cobylo = 3;
+                }
                 
+                czyexit = true;
+            }
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::T) {
+                if (czyexit) {
+                    window.close();
+                }
+            }
+            if (sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
+                if (czyexit) {
+                    czyexit = false;
+                    if (cobylo == 1) {
+                        czymenu = true;
+                    }
+                    if (cobylo == 2) {
+                        czygra = true;
+                    }
+                    if (cobylo == 3) {
+                        czypauza = true;
+                    }
+                }
+            }
         }
 
-        window.clear(sf::Color::Black);
-        
-        interfejs.draw();
-        tile.draw(window);
 
+        if (czyexit) {
+            window.draw(exit.GetExit());
+        }
+        if (czypauza) {
+            window.draw(pauza.GetPomoc());
+        }
+    
+        if (czymenu) {
+            window.draw(menu.GetMenu());
+        }
+
+        if (czygra) {
+            window.clear(sf::Color::Black);
+            interfejs.draw();
+            tile.draw(window);
+            window.draw(gracz.getGracz());
+            window.draw(enemy1.getEnemy());
+            window.draw(enemy2.getEnemy());
+            window.draw(enemy3.getEnemy());
+            window.draw(enemy4.getEnemy());
+            window.draw(enemy5.getEnemy());
+            window.draw(enemy6.getEnemy());
+            window.draw(moneta.getMoneta());
+        }
         
-        window.draw(gracz.getGracz());
-        window.draw(enemy1.getEnemy());
-        window.draw(enemy2.getEnemy());
-        window.draw(enemy3.getEnemy());
-        window.draw(enemy4.getEnemy());
-        window.draw(enemy5.getEnemy());
-        window.draw(enemy6.getEnemy());
-        window.draw(moneta.getMoneta());
         window.display();
     }
-
+    
     return 0;
 }

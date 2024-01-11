@@ -13,7 +13,8 @@ private:
     sf::Clock clock;
 
 public:
-    Gracz(float x, float y);
+    Gracz(float x, float y, int tex);
     sf::Sprite getGracz() const;
+    void ZmianaTekstury(int tex);
     void ruch(float x, float y, const std::vector<sf::Vector2f>& sciany, Enemy& enemy1, Enemy& enemy2, Enemy& enemy3, Enemy& enemy4, Enemy& enemy5, Enemy& enemy6, Interfejs& interfejs, int& punkty);
 };

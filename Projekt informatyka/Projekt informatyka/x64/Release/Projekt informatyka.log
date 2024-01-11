@@ -1,8 +1,10 @@
-﻿  Enemy.cpp
+﻿  Exit.cpp
 x64\Release\Moneta.obj : warning LNK4042: obiekt określono więcej niż raz; dodatkowe wystąpienia zostały zignorowane
+x64\Release\Pomoc.obj : warning LNK4042: obiekt określono więcej niż raz; dodatkowe wystąpienia zostały zignorowane
+x64\Release\Exit.obj : warning LNK4042: obiekt określono więcej niż raz; dodatkowe wystąpienia zostały zignorowane
   Trwa generowanie kodu
-  0 of 371 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  1 of 384 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Zakończono generowanie kodu
-  Projekt informatyka.vcxproj -> C:\Users\Wojtek\Desktop\Projekt Informatyka\Projekt informatyka\x64\Release\Projekt informatyka.exe
+  Projekt informatyka.vcxproj -> C:\Users\Wojtek\Desktop\Projekt-Informatyka\Projekt informatyka\x64\Release\Projekt informatyka.exe

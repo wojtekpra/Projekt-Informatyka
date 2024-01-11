@@ -131,17 +131,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Exit.cpp" />
+    <ClCompile Include="Pomoc.cpp" />
     <ClCompile Include="Gracz.cpp" />
     <ClCompile Include="Interfejs.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Moneta.cpp" />
     <ClCompile Include="Moneta.hpp" />
+    <ClCompile Include="Pomoc.hpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Exit.hpp" />
     <ClCompile Include="Źródło.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Gracz.hpp" />
     <ClInclude Include="Interfejs.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Tile.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

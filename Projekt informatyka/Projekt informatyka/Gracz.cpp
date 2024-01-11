@@ -4,11 +4,26 @@
 #include <iostream>
 #include <sstream> 
 
-Gracz::Gracz(float x, float y) {
+Gracz::Gracz(float x, float y, int tex) {
     position.x = x;
     position.y = y;
     ludzik.setPosition(position);
-    texture.loadFromFile("Gracz.PNG");
+    if (tex == 1) {
+        texture.loadFromFile("Gracz.PNG");
+    }
+    else {
+        texture.loadFromFile("szczur.PNG");
+    }
+    ludzik.setTexture(texture);
+}
+
+void Gracz::ZmianaTekstury(int tex) {
+    if (tex == 1) {
+        texture.loadFromFile("Gracz.PNG");
+    }
+    else {
+        texture.loadFromFile("szczur.PNG");
+    }
     ludzik.setTexture(texture);
 }
 
@@ -19,13 +34,13 @@ sf::Sprite Gracz::getGracz() const {
 void Gracz::ruch(float x, float y, const std::vector<sf::Vector2f>& sciany, Enemy& enemy1, Enemy& enemy2, Enemy& enemy3, Enemy& enemy4, Enemy& enemy5, Enemy& enemy6, Interfejs& interfejs, int& punkty) {
     std::stringstream ss;
     if (clock.getElapsedTime().asSeconds() > 0.5) {
-        position.x = position.x + x*55; //(30, 60) 55x, 51 y
-        position.y = position.y + y*51;
+        position.x = position.x + x * 55; //(30, 60) 55x, 51 y
+        position.y = position.y + y * 51;
         for (const auto& vector : sciany)
         {
             if (position == vector) {
-                position.x = position.x - x*55;
-                position.y = position.y - y*51;
+                position.x = position.x - x * 55;
+                position.y = position.y - y * 51;
             }
             else if (position.x <= 0 || position.x >= 580) {
                 position.x = position.x - x * 55;
@@ -49,8 +64,8 @@ void Gracz::ruch(float x, float y, const std::vector<sf::Vector2f>& sciany, Enem
         ss.str("");
         ss << "Ruchy: " << punkty;
         interfejs.setTextRuch((ss.str()));
-       // std::cout <<  position.x << ", " << position.y << std::endl;
-        
+        // std::cout <<  position.x << ", " << position.y << std::endl;
+
         clock.restart();
     }
 }
